@@ -5,7 +5,7 @@ from docx.shared import Pt
 import os
 import time
 
-URL = input('Copy and Paste Kahoot URL:\n\n')
+URL = input('Copy and Paste Kahoot URL:\n(* Hit ENTER to Continue)\n\n')
 answerURL = 'https://create.kahoot.it/rest/kahoots/{}/card/?includeKahoot=true'.format(URL.split('/')[-1])
 data = requests.get(answerURL).json()['kahoot']['questions']
 docQues = Document()
@@ -52,9 +52,8 @@ for i in range(0, len(data)):
 docQues.save('KahootExport-Question.docx')
 print('\nSaved: KahootExport-Question.docx')
 docAns.save('KahootExport-Answer.docx')
-print('\nSaved: KahootExport-Answer.docx')
+print('Saved: KahootExport-Answer.docx')
 
+input('\n(* Hit ENTER to Exit and Open Documents)\n')
 os.startfile('KahootExport-Question.docx')
 os.startfile('KahootExport-Answer.docx')
-
-input('\nHit ENTER to Exit\n')
