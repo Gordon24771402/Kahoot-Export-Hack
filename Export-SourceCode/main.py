@@ -2,8 +2,11 @@ import string
 import requests
 from docx import Document
 from docx.shared import Pt
+import os
+import time
 
-answerURL = 'https://create.kahoot.it/rest/kahoots/{}/card/?includeKahoot=true'.format(input().split('/')[-1])
+URL = input('Copy and Paste Kahoot URL:\n\n')
+answerURL = 'https://create.kahoot.it/rest/kahoots/{}/card/?includeKahoot=true'.format(URL.split('/')[-1])
 data = requests.get(answerURL).json()['kahoot']['questions']
 docQues = Document()
 docAns = Document()
@@ -47,4 +50,11 @@ for i in range(0, len(data)):
 
 
 docQues.save('KahootExport-Question.docx')
+print('\nSaved: KahootExport-Question.docx')
 docAns.save('KahootExport-Answer.docx')
+print('\nSaved: KahootExport-Answer.docx')
+
+os.startfile('KahootExport-Question.docx')
+os.startfile('KahootExport-Answer.docx')
+
+input('\nHit ENTER to Exit\n')
