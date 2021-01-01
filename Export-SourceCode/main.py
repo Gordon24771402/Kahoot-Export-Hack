@@ -2,8 +2,9 @@ import string
 import requests
 from docx import Document
 from docx.shared import Pt
+import subprocess
 import os
-import time
+import platform
 
 URL = input('Copy and Paste Kahoot URL:\n(* Hit ENTER to Continue)\n\n')
 answerURL = 'https://create.kahoot.it/rest/kahoots/{}/card/?includeKahoot=true'.format(URL.split('/')[-1])
@@ -55,5 +56,12 @@ docAns.save('KahootExport-Answer.docx')
 print('Saved: KahootExport-Answer.docx')
 
 input('\n(* Hit ENTER to Exit and Open Documents)\n')
-os.startfile('KahootExport-Question.docx')
-os.startfile('KahootExport-Answer.docx')
+if platform.system() == 'Darwin':       # macOS
+    subprocess.call(('open', 'KahootExport-Question.docx'))
+    subprocess.call(('open', 'KahootExport-Answer.docx'))
+elif platform.system() == 'Windows':    # Windows
+    os.startfile('KahootExport-Question.docx')
+    os.startfile('KahootExport-Answer.docx')
+else:                                   # linux variants
+    subprocess.call(('xdg-open', 'KahootExport-Question.docx'))
+    subprocess.call(('xdg-open', 'KahootExport-Answer.docx'))
