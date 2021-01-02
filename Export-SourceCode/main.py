@@ -17,6 +17,12 @@ for i in range(0, len(data)):
     text = '{ques}'.format(ques=data[i]['question'])
     # Remove &nbsp;
     text = text.replace('&nbsp;', '')
+    # Remove <i> and </i>
+    text = text.replace('<i>', '')
+    text = text.replace('</i>', '')
+    # Remove <b> and </b>
+    text = text.replace('<b>', '')
+    text = text.replace('</b>', '')
     # Paragraph of Questions
     paragraph = docQues.add_paragraph(text, style='List Number')
     # Format Options
@@ -29,6 +35,12 @@ for i in range(0, len(data)):
         text = '\t{ansNum}. {ans}'.format(ansNum=list(string.ascii_uppercase)[j], ans=data[i]['choices'][j]['answer'])
         # Remove &nbsp;
         text = text.replace('&nbsp;', '')
+        # Remove <i> and </i>
+        text = text.replace('<i>', '')
+        text = text.replace('</i>', '')
+        # Remove <b> and </b>
+        text = text.replace('<b>', '')
+        text = text.replace('</b>', '')
         # Paragraph of Choices
         paragraph = docQues.add_paragraph(text)
         # Format Options
@@ -56,12 +68,16 @@ docAns.save('KahootExport-Answer.docx')
 print('Saved: KahootExport-Answer.docx')
 
 input('\n(* Hit ENTER to Exit and Open Documents)\n')
-if platform.system() == 'Darwin':       # macOS
+
+# Mac
+if platform.system() == 'Darwin':
     subprocess.call(('open', 'KahootExport-Question.docx'))
     subprocess.call(('open', 'KahootExport-Answer.docx'))
-elif platform.system() == 'Windows':    # Windows
+# Windows
+elif platform.system() == 'Windows':
     os.startfile('KahootExport-Question.docx')
     os.startfile('KahootExport-Answer.docx')
-else:                                   # linux variants
+# Linux
+else:
     subprocess.call(('xdg-open', 'KahootExport-Question.docx'))
     subprocess.call(('xdg-open', 'KahootExport-Answer.docx'))
